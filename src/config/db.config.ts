@@ -18,7 +18,6 @@ const connectDB = async () => {
         try {
             
             const dbConn = await 
-
         mongoose.connect(process.env.MONGODB_URI || '', options)
             console.log(colors.cyan.bold.underline(`Database Connected: ${dbConn.connection.host} `))
         } catch (error) {
