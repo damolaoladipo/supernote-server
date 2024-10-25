@@ -1,11 +1,12 @@
 import app from "./config/app.config";
 import colors from "colors";
 import connectDB from "./config/db.config";
+import { seedUsers } from './config/seeds/user.seed'
 
 const connect = async () : Promise<void> => {
 
     await connectDB()
-    // await seedData()
+    await seedUsers()
 }
 
 connect()

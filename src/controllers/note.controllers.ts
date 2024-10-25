@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express'
 import NoteModel from '../models/note.model'
-import { Note } from '../utils/interface.util';
+import { Note, IUser } from '../utils/interface.util';
 
 export const health = async (req: Request, res: Response)=>{
     res.status(200).json({message:'Welcome to Todo app'})

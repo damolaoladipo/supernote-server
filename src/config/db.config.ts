@@ -19,9 +19,10 @@ const connectDB = async () => {
             
             const dbConn = await 
         mongoose.connect(process.env.MONGODB_URI || '', options)
-            console.log(colors.cyan.bold.underline(`Database Connected: ${dbConn.connection.host} `))
+            
+            console.log(colors.cyan.bold.underline(`Supernote Database Connected: ${dbConn.connection.host} `))
         } catch (error) {
-            console.log(colors.cyan.bold.underline(`Could not connect to database: ${error}`))
+            console.log(colors.cyan.bold.underline(`Could not connect to Supernote database: ${error}`))
             process.exit(1)
         }
     }
