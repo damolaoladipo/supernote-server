@@ -1,6 +1,7 @@
 import mongoose, { ConnectOptions } from "mongoose";
 import { ENVType } from "../utils/enums.util";
 import colors from "colors";
+require('dotenv').config();
 
 
 const options: ConnectOptions = {
@@ -18,9 +19,9 @@ const connectDB = async () => {
         try {
             
             const dbConn = await 
-        mongoose.connect(process.env.MONGODB_URI || '', options)
+        mongoose.connect(process.env.MONGODB_URI as string, options)
             
-            console.log(colors.cyan.bold.underline(`Supernote Database Connected: ${dbConn.connection.host} `))
+            console.log(colors.green.bold.underline(`Supernote Database Connected: ${dbConn.connection.host} `))
         } catch (error) {
             console.log(colors.cyan.bold.underline(`Could not connect to Supernote database: ${error}`))
             process.exit(1)

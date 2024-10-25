@@ -3,6 +3,7 @@ import express, { Request, Response, NextFunction } from "express";
 import cors from 'cors'
 import noteRoutes from '../routes/noteRoutes';
 import authRoutes from '../routes/authRoutes';
+import errorHandler from "../middleware/error.mdw";
 
 
 
@@ -17,6 +18,6 @@ app.use(cors({ origin: true, credentials: true }));
 app.use("/api", authRoutes);
 app.use("/api", noteRoutes);
 
-// app.use(errorHandler);
+app.use(errorHandler);
 
 export default app

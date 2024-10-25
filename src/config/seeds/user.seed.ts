@@ -1,11 +1,13 @@
 import mongoose from 'mongoose';
 import UserModel from '../../models/user.model'; 
 import bcrypt from 'bcrypt';
+import colors from "colors";
 
 export const seedUsers = async () => {
     try {
 
         await mongoose.connect(process.env.MONGODB_URI as string, {
+            // useNewUrlParser: true, useUnifiedTopology: true
         });
 
 
@@ -21,7 +23,7 @@ export const seedUsers = async () => {
             {
                 username: 'Damola',
                 email: 'dee@damolaoladipo.com',
-                password: "password123",
+                password: "password1234@",
             },
             {
                 username: 'HelloDML',
@@ -38,12 +40,12 @@ export const seedUsers = async () => {
 
         await UserModel.insertMany(hashedUsers);
 
-        console.log('User seed data inserted successfully');
+        console.log( colors.blue.bold.underline(`User seed data inserted successfully`));
     } catch (error) {
-        console.error('Error seeding user data:', error);
+        console.error(colors.cyan.bold.underline(`Error seeding user data: ${error}`));
     } finally {
         
-        await mongoose.connection.close();
+        //await mongoose.connection.close();
     }
 };
 
