@@ -1,6 +1,8 @@
 import { config } from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
 import cors from 'cors'
+import noteRoutes from '../routes/noteRoutes';
+import authRoutes from '../routes/authRoutes';
 
 
 
@@ -12,8 +14,8 @@ app.use(express.json({ limit: "50mb" }));
 app.use(cors({ origin: true, credentials: true }));
 
 
-// app.use("/api", authRoutes);
-// app.use("/api", noteRoutes);
+app.use("/api", authRoutes);
+app.use("/api", noteRoutes);
 
 // app.use(errorHandler);
 

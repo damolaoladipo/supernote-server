@@ -1,8 +1,8 @@
-import express, {Request, Response} from 'express'
+import {Request, Response} from 'express'
 import User from '../models/user.model'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
-import { IUser } from '../utils/type.util'
+import { IUser } from '../utils/interface.util'
 
 export const register = async (req:Request, res:Response)=>{
          try {
@@ -55,4 +55,28 @@ export const register = async (req:Request, res:Response)=>{
 
     }
 
+}
+
+export const logout = (req: Request, res: Response) => {
+    res.status(200).json({ error: false, message: "Logout successful" });
+}
+
+export const profile = async (req: Request, res: Response) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) {
+            return res.status(401).json({ error: true, message: "No token provided" });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
+        const user: IUser | null = await User.findById(decoded.id);
+
+        if (!user) {
+            return res.status(404).json({ error: true, message: "User not found" });
+        }
+
+        res.status(200).json({ error: false, data: { username: user.username, email: user.email } });
+    } catch (error: any) {
+        return res.status(500).json({ error: true, message: "Internal server error: " + error.message });
+    }
 }

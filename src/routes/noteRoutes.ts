@@ -1,11 +1,14 @@
-// import express from 'express'
-// import { createNotes, getNotes, health } from '../controllers/notes'
-// import protect from '../middlewares/authMw'
+import express from 'express'
+import { createNote, getNotes, health, updateNote, deleteNote} from '../controllers/note.controllers'
+import protect from '../middleware/auth.middleware'
 
-// const router = express.Router()
+const router = express.Router()
 
-// router.get('/', health)
-// router.post('/notes', protect, createNotes)
-// router.get('/notes', protect, getNotes)
+router.get('/', health)
+router.post('/', createNote);   // Create a note
+router.get('/notes', protect, getNotes);       // Get all notes
+router.get('/:id', protect, getNotes);     // Get a specific note
+router.put('/:id', protect, updateNote);  // Update a note
+router.delete('/:id', protect, deleteNote);
 
-// export default router
+export default router

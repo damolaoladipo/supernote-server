@@ -1,9 +1,13 @@
+import { Request, Response, NextFunction } from 'express';
 import { Document, ObjectId } from "mongoose";
 
 
+
 export interface IUser {
-    avatar?: string,
-    username?:  string,
+    _id: ObjectId;
+    id: ObjectId;
+    avatar: string,
+    username:  string,
     email: string,
     password: string
     createdAt: Date;
@@ -23,11 +27,15 @@ export interface IUserDoc extends IUser {
     getAuthToken(): Promise<string>
   }
   
-
-  export interface IResult{
-    error: boolean,
-    message: string,
-    code?: number,
-    data?: any
-  
+  export interface AuthenticatedRequest extends Request {
+    user?: IUser
   }
+
+export interface Note {
+    id?: string;  
+    title: string;
+    content: string;
+    userId: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
