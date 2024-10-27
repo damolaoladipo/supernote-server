@@ -34,14 +34,16 @@ export const seedUsers = async () => {
             password: await bcrypt.hash(user.password, 10),
         })));
 
-        await UserModel.insertMany(hashedUsers);
+        const createdUsers = await UserModel.insertMany(hashedUsers); 
         console.log(colors.blue.bold.underline(`User seed data inserted successfully`));
+
+        return createdUsers; 
+
     } catch (error) {
         console.error(colors.cyan.bold.underline(`Error seeding user data: ${error}`));
-    } finally {
+        return []; 
         
+    } finally {
         await mongoose.connection.close();
     }
 };
-
-export default seedUsers

@@ -3,3 +3,8 @@ export enum ENVType {
     STAGING = 'staging',
     DEVELOPMENT = 'development'
     }
+
+    export enum UserRole {
+        USER = 'user',
+        ADMIN = 'admin',
+    }
