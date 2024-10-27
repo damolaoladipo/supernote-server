@@ -5,7 +5,6 @@ import { Note, IUser } from '../utils/interface.util';
 export const health = async (req: Request, res: Response)=>{
     res.status(200).json({message:'Welcome to Todo app'})
 }
-
  
  export const createNote = async (req: Request, res: Response)=>{
     const {title, content} = req.body
@@ -23,8 +22,18 @@ export const health = async (req: Request, res: Response)=>{
    }
 }
 
+export const getNotes = async (req: Request, res: Response): Promise<Response> => {
+    const userId = req.user.id;
 
-export const getNote = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const notes = await NoteModel.find({ userId });
+        return res.status(200).json({ error: false, data: notes });
+    } catch (error: any) {
+        return res.status(500).json({ error: true, message: error.message });
+    }
+};
+
+export const getNoteById = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;
 
     try {
@@ -33,17 +42,6 @@ export const getNote = async (req: Request, res: Response): Promise<Response> =>
             return res.status(404).json({ error: true, message: 'Note not found' });
         }
         return res.status(200).json({ error: false, data: note });
-    } catch (error: any) {
-        return res.status(500).json({ error: true, message: error.message });
-    }
-};
-
-export const getNotes = async (req: Request, res: Response): Promise<Response> => {
-    const userId = req.user.id;
-
-    try {
-        const notes = await NoteModel.find({ userId });
-        return res.status(200).json({ error: false, data: notes });
     } catch (error: any) {
         return res.status(500).json({ error: true, message: error.message });
     }
