@@ -12,7 +12,8 @@ const options: ConnectOptions = {
     socketTimeoutMS: 6000,
     serverSelectionTimeoutMS: 6000,
     family: 4,
-}
+};
+
 
 const connectDB = async () => {
     if (process.env.NODE_ENV ===ENVType.DEVELOPMENT || process.env.NODE_ENV === ENVType.PRODUCTION)
@@ -20,8 +21,8 @@ const connectDB = async () => {
             
             const dbConn = await 
         mongoose.connect(process.env.MONGODB_URI as string, options)
-            
             console.log(colors.green.bold.underline(`Supernote Database Connected: ${dbConn.connection.host} `))
+            return dbConn
         } catch (error) {
             console.log(colors.cyan.bold.underline(`Could not connect to Supernote database: ${error}`))
             process.exit(1)

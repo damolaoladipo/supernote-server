@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import { Document, ObjectId } from "mongoose";
 
 
-
 export interface IUser {
     _id: ObjectId;
     id: ObjectId;
@@ -13,6 +12,7 @@ export interface IUser {
     createdAt: Date;
     updatedAt: Date;
     slug: string;
+    role?: 'user' | 'admin'
 
 }
 
@@ -31,7 +31,7 @@ export interface IUserDoc extends IUser {
     user?: IUser
   }
 
-export interface Note {
+export interface INote {
     id?: string;  
     title: string;
     content: string;

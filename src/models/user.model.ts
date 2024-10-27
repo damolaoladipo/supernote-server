@@ -33,6 +33,11 @@ const userSchema = new Schema<IUser>({
     type: Date,
     default: Date.now,
   },
+  role: { 
+    type: String, 
+    default: 'user' 
+  },
+
 });
 
 export default model("User", userSchema);

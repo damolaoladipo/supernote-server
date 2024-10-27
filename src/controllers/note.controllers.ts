@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express'
 import NoteModel from '../models/note.model'
-import { Note, IUser } from '../utils/interface.util';
+import { INote, IUser } from '../utils/interface.util';
 
 export const health = async (req: Request, res: Response)=>{
     res.status(200).json({message:'Welcome to Todo app'})
@@ -10,7 +10,7 @@ export const health = async (req: Request, res: Response)=>{
     const {title, content} = req.body
     const userId = (req as any).user.id
 
-    const note: Note = new NoteModel({ title, content, userId });
+    const note: INote = new NoteModel({ title, content, userId });
    try {
     const note = await new Note({
         title, content, user: userId

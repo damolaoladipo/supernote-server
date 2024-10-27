@@ -1,36 +1,32 @@
 import mongoose from 'mongoose';
-import UserModel from '../../models/user.model'; 
+import UserModel from '../../models/user.model';
 import bcrypt from 'bcrypt';
 import colors from "colors";
 
 export const seedUsers = async () => {
     try {
-
-        await mongoose.connect(process.env.MONGODB_URI as string, {
-            // useNewUrlParser: true, useUnifiedTopology: true
-        });
-
-
+        
         await UserModel.deleteMany({});
-
 
         const users = [
             {
                 username: "bigdml",
                 email: "iam@damolaoladipo.com",
                 password: "password123",
+                role: 'admin',
             },
             {
                 username: 'Damola',
                 email: 'dee@damolaoladipo.com',
                 password: "password1234@",
+                role: 'user',
             },
             {
                 username: 'HelloDML',
                 email: 'hello@damolaoladipo.com',
-                password: "password456",
+                password: "password456##",
+                role: 'user',
             },
-
         ];
 
         const hashedUsers = await Promise.all(users.map(async (user) => ({
@@ -39,15 +35,13 @@ export const seedUsers = async () => {
         })));
 
         await UserModel.insertMany(hashedUsers);
-
-        console.log( colors.blue.bold.underline(`User seed data inserted successfully`));
+        console.log(colors.blue.bold.underline(`User seed data inserted successfully`));
     } catch (error) {
         console.error(colors.cyan.bold.underline(`Error seeding user data: ${error}`));
     } finally {
         
-        //await mongoose.connection.close();
+        await mongoose.connection.close();
     }
 };
 
-
-seedUsers();
+export default seedUsers

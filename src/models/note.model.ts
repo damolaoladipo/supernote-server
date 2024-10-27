@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { Note } from '../utils/interface.util';
+import { INote } from '../utils/interface.util';
 
 const noteSchema: Schema = new Schema({
     title: { type: String, required: true },
@@ -9,6 +9,6 @@ const noteSchema: Schema = new Schema({
     updatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-const NoteModel = mongoose.model<Note & Document>('Note', noteSchema);
+const NoteModel = mongoose.model<INote & Document>('Note', noteSchema);
 
 export default NoteModel;
