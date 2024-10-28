@@ -1,0 +1,45 @@
+router.post('/note', createNote);   
+router.get('/notes', getNotes);   
+router.get('/note/:id', getNoteById); 
+router.put('/note/:id', updateNote); 
+router.delete('/note/:id', deleteNote);
+
+router.post('/register', register)
+router.post('/login', login)
+router.post('logout', logout)
+router.get('/profile', profile)
+
+router.post('/user', createUser);
+router.get('/users', getAllUsers);
+router.get('/user:id', getUserById);
+router.put('/user:id', updateUser);
+router.delete('/user:id', deleteUser);
+
+
+{
+  "_id": {
+    "$oid": "671f29e98bbe5f38e6051358"
+  },
+  "avatar": "",
+  "email": "iam@damolaoladipo.com",
+  "username": "bigdml",
+  "password": "$2b$10$jsUUp5TZ5JnJrzDdUuu8Auc1nIE09ICzz2nH4TANhsV6njVvS4fjO",
+}
+Register User (post)
+{
+    "username": "Odamola",
+    "email": "damola@damolaoladipo.com",
+    "password": "passWord$123",
+}
+
+Login User (post)
+{
+    "email": "iam@damolaoladipo.com",
+    "password": "password123"
+}
+
+
+{
+    "title": "Building Scalable Applications",
+    "content": "Update: When building scalable applications, consider using microservices architecture, cloud services, and containerization to ensure smooth performance and easy maintenance. When building scalable applications, consider using microservices architecture, cloud services, and containerization to ensure smooth performance and easy maintenance. When building scalable applications, consider using microservices architecture, cloud services, and containerization to ensure smooth performance and easy maintenance."
+}

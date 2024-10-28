@@ -2,7 +2,7 @@ import UserModel from '../models/user.model';
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+export const createUser = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     const { username, email, password, role } = req.body;
 
     try {
@@ -20,7 +20,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllUsers = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     try {
         const users = await UserModel.find({});
         res.status(200).json(users);
@@ -29,7 +29,7 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
     }
 };
 
-export const getUserById = async (req: Request, res: Response, next: NextFunction) => {
+export const getUserById = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     const { id } = req.params;
 
     try {
@@ -43,7 +43,7 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
     }
 };
 
-export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
+export const updateUser = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     const { id } = req.params;
     const { username, email, password, role } = req.body;
 
@@ -63,7 +63,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-export const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteUser = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     const { id } = req.params;
 
     try {

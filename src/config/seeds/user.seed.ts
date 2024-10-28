@@ -44,6 +44,6 @@ export const seedUsers = async () => {
         return []; 
         
     } finally {
-        await mongoose.connection.close();
+        //await mongoose.connection.close();
     }
 };

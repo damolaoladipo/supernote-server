@@ -1,39 +1,48 @@
-import express, {Request, Response} from 'express'
-import NoteModel from '../models/note.model'
-import { INote, IUser } from '../utils/interface.util';
+import { Request, Response, NextFunction } from 'express';
+import NoteModel from '../models/note.model';
 
-export const health = async (req: Request, res: Response)=>{
-    res.status(200).json({message:'Welcome to Todo app'})
-}
- 
- export const createNote = async (req: Request, res: Response)=>{
-    const {title, content} = req.body
-    const userId = (req as any).user.id
-
-    const note: INote = new NoteModel({ title, content, userId });
-   try {
-    const note = await new Note({
-        title, content, user: userId
-    })
-    await note.save()
-    res.status(201).json({error: false, data: note})
-   } catch (error:any) {
-    res.status(500).json({error: true, data: error.message})
-   }
-}
-
-export const getNotes = async (req: Request, res: Response): Promise<Response> => {
-    const userId = req.user.id;
-
+export const health = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const notes = await NoteModel.find({ userId });
-        return res.status(200).json({ error: false, data: notes });
-    } catch (error: any) {
-        return res.status(500).json({ error: true, message: error.message });
+        res.status(200).json({
+            name: "Welcome to SuperNote App",
+            Version: "1.0.0",
+            message: "Supernote api v1.0.0 health is OK",
+            status: 200,
+            Author: "Damola Oladipo"
+        });
+    } catch (error) {
+        next(error);
     }
 };
 
-export const getNoteById = async (req: Request, res: Response): Promise<Response> => {
+export const createNote = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
+    const { title, content, userId } = req.body;
+
+    try {
+        const note = new NoteModel({ title, content, userId });
+        await note.save();
+        res.status(201).json({ error: false, data: note });
+    } catch (error: any) {
+        next(error);
+    }
+};
+
+export const getNotes = async (req: Request, res: Response, next: NextFunction) :Promise<any> => {
+    const userId = req.body.userId || req.query.userId;;
+    console.log("UserID:", userId);
+
+    const notes = await NoteModel.find();
+
+    try {
+        const notes = await NoteModel.find({ userId });
+        res.status(200).json({ error: false, data: notes });
+        console.log("Notes retrieved:", notes);
+    } catch (error: any) {
+        next(error);
+    }
+};
+
+export const getNoteById = async (req: Request, res: Response, next: NextFunction) :Promise<any> => {
     const { id } = req.params;
 
     try {
@@ -41,13 +50,13 @@ export const getNoteById = async (req: Request, res: Response): Promise<Response
         if (!note) {
             return res.status(404).json({ error: true, message: 'Note not found' });
         }
-        return res.status(200).json({ error: false, data: note });
+        res.status(200).json({ error: false, data: note });
     } catch (error: any) {
-        return res.status(500).json({ error: true, message: error.message });
+        next(error);
     }
 };
 
-export const updateNote = async (req: Request, res: Response): Promise<Response> => {
+export const updateNote = async (req: Request, res: Response, next: NextFunction) :Promise<any> => {
     const { id } = req.params;
     const { title, content } = req.body;
 
@@ -56,13 +65,13 @@ export const updateNote = async (req: Request, res: Response): Promise<Response>
         if (!updatedNote) {
             return res.status(404).json({ error: true, message: 'Note not found' });
         }
-        return res.status(200).json({ error: false, data: updatedNote });
+        res.status(200).json({ error: false, data: updatedNote });
     } catch (error: any) {
-        return res.status(500).json({ error: true, message: error.message });
+        next(error);
     }
 };
 
-export const deleteNote = async (req: Request, res: Response): Promise<Response> => {
+export const deleteNote = async (req: Request, res: Response, next: NextFunction) :Promise<any> => {
     const { id } = req.params;
 
     try {
@@ -70,8 +79,9 @@ export const deleteNote = async (req: Request, res: Response): Promise<Response>
         if (!deletedNote) {
             return res.status(404).json({ error: true, message: 'Note not found' });
         }
-        return res.status(200).json({ error: false, message: 'Note deleted successfully' });
+        res.status(200).json({ error: false, message: 'Note deleted successfully' });
     } catch (error: any) {
-        return res.status(500).json({ error: true, message: error.message });
+        next(error);
     }
 };
+

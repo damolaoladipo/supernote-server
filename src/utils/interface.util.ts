@@ -27,7 +27,8 @@ export interface IUserDoc extends IUser {
 }
 
 export interface AuthenticatedRequest extends Request {
-    user?: IUser
+    user?: IUser & { _id: ObjectId };
+    userId?: ObjectId
   }
 
 export interface INote {

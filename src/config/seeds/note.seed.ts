@@ -60,7 +60,7 @@ const seedNotes = async (createdUsers: Array<{ _id: ObjectId }>) => {
     } catch (error) {
         console.error(colors.cyan.bold.underline(`Error seeding note data: ${error}`));
     } finally {
-        await mongoose.connection.close();
+        //await mongoose.connection.close();
     }
 };
 
