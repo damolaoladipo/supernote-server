@@ -1,9 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import User from '../models/user.model';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { IUser } from '../utils/interface.util';
 
-export const register = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
+const JWT_SECRET = process.env.JWT_SECRET
+
+
+export const register = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
         const { username, password, email } = req.body;
 
@@ -27,7 +31,8 @@ export const register = async (req: Request, res: Response, next: NextFunction):
     }
 };
 
-export const login = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
+
+export const login = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
         const { email, password } = req.body;
 
@@ -47,17 +52,34 @@ export const login = async (req: Request, res: Response, next: NextFunction):Pro
             return res.status(400).json({ error: true, message: 'Invalid email or password' });
         }
 
-        res.status(200).json({ error: false, data: user });
+        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '2h' });
+
+        res.status(200).json({ error: false, token });
     } catch (error: any) {
         next(error);
     }
 };
 
+
 export const logout = (req: Request, res: Response) => {
     res.status(200).json({ error: false, message: 'Logout successful' });
 };
 
-export const profile = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
+
+export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers['authorization']?.split(' ')[1];
+    if (!token) return res.status(403).json({ error: true, message: 'Token is required' });
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.userId = (decoded as { id: string }).id;
+        next();
+    } catch (error) {
+        return res.status(401).json({ error: true, message: 'Invalid token' });
+    }
+};
+
+export const profile = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
         const user: IUser | null = await User.findById(req.userId);
 

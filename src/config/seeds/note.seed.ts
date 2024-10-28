@@ -65,4 +65,3 @@ const seedNotes = async (createdUsers: Array<{ _id: ObjectId }>) => {
 };
 
 export default seedNotes;
-

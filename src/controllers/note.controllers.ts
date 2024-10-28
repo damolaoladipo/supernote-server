@@ -31,7 +31,7 @@ export const getNotes = async (req: Request, res: Response, next: NextFunction) 
     const userId = req.body.userId || req.query.userId;;
     console.log("UserID:", userId);
 
-    const notes = await NoteModel.find();
+// const notes = await NoteModel.find();
 
     try {
         const notes = await NoteModel.find({ userId });
@@ -79,6 +79,7 @@ export const deleteNote = async (req: Request, res: Response, next: NextFunction
         if (!deletedNote) {
             return res.status(404).json({ error: true, message: 'Note not found' });
         }
+
         res.status(200).json({ error: false, message: 'Note deleted successfully' });
     } catch (error: any) {
         next(error);

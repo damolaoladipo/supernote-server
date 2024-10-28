@@ -16,6 +16,30 @@ router.put('/user:id', updateUser);
 router.delete('/user:id', deleteUser);
 
 
+
+{
+    "username": "Odamola",
+    "email": "damola@damolaoladipo.com",
+    "password": "passWord$123"
+}
+
+"userId": "671f447926dad71e9bcf7eed"
+
+{
+    "title": "Data Science Lifecycle",
+    "content": "The data science lifecycle includes problem definition, data collection, data cleaning, exploratory data analysis, modeling, and deployment.",
+    "userId": "671f447926dad71e9bcf7eed"
+}
+
+
+
+
+
+
+
+
+
+
 {
   "_id": {
     "$oid": "671f29e98bbe5f38e6051358"
@@ -38,8 +62,61 @@ Login User (post)
     "password": "password123"
 }
 
+{
+  "_id": {
+    "$oid": "671f29ea8bbe5f38e6051362"
+  },
+  "title": "The Importance of Prototyping",
+  "content": "Prototyping helps visualize ideas and test assumptions before full-scale development. Use tools like Figma or Adobe XD for creating interactive prototypes.",
+  "userId": {
+    "$oid": "671f29e98bbe5f38e6051358"
+  },
+  "createdAt": {
+    "$date": "2024-10-28T06:06:34.060Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-28T06:06:34.060Z"
+  },
+  "__v": 0
+}
 
 {
     "title": "Building Scalable Applications",
     "content": "Update: When building scalable applications, consider using microservices architecture, cloud services, and containerization to ensure smooth performance and easy maintenance. When building scalable applications, consider using microservices architecture, cloud services, and containerization to ensure smooth performance and easy maintenance. When building scalable applications, consider using microservices architecture, cloud services, and containerization to ensure smooth performance and easy maintenance."
+}
+
+{
+  "_id": {
+    "$oid": "671f29ea8bbe5f38e6051362"
+  },
+  "title": "The Importance of Prototyping",
+  "content": "Prototyping helps visualize ideas and test assumptions before full-scale development. Use tools like Figma or Adobe XD for creating interactive prototypes.",
+  "userId": {
+    "$oid": "671f29e98bbe5f38e6051358"
+  },
+  "createdAt": {
+    "$date": "2024-10-28T06:06:34.060Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-28T06:06:34.060Z"
+  },
+  "__v": 0
+}
+
+{
+  "_id": {
+    "$oid": "671f29ea8bbe5f38e605135e"
+  },
+  "title": "Building Scalable Applications",
+  "content": "When building scalable applications, consider using microservices architecture, cloud services, and containerization to ensure smooth performance and easy maintenance.",
+  "userId": {
+    "$oid": "671f29e98bbe5f38e6051359"
+  },
+  "createdAt": {
+    "$date": "2024-10-28T06:06:34.058Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-28T06:06:34.058Z"
+  },
+  "__v": 0
 }
