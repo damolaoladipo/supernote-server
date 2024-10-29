@@ -1,32 +1,45 @@
-// import { Request, Response, NextFunction } from 'express';
-// import jwt, { JwtPayload } from 'jsonwebtoken';
-// import { AuthenticatedRequest, IUser } from '../utils/interface.util';
+import { Request, Response, NextFunction } from 'express';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { AuthenticatedRequest, IUser } from '../utils/interface.util';
 
-// const protect = (req: Request, res: Response, next: NextFunction): Response | void => {
-//     const header = req.headers['authorization'];
+const protect = (req: Request, res: Response, next: NextFunction): Response | void => {
+    const header = req.headers['authorization'];
 
-//     if (!header) {
-//         return res.status(401).json({ message: 'Authorization header missing' });
-//     }
+    let result =  {
+        error: false,
+        message: '',
+        code: 200
+    }
 
-//     const token: string = header.split(' ')[1];
+    if (!header) {
+        result.message = 'Authorization header missing'
+        result.code = 401
+        result.error = true
+    }
 
-//     if (!token) {
-//         return res.status(401).json({ message: 'Unauthorized, access denied' });
-//     }
+    const token: any = header.split(' ')[1];
 
-//     jwt.verify(token, process.env.JWT_SECRET as string, (err, data) => {
-//         if (err) {
-//             return res.status(403).json({ error: true, message: 'Invalid token' });
-//         }
+    if (!token) {
+        result.message = 'Unauthorized, access denied'
+        result.code = 401
+        result.error = true
+    }
 
-//         if (typeof data === 'object' && data !== null) {
-//             req.user = data as IUser;  
-//             next();
-//         } else {
-//             return res.status(403).json({ error: true, message: 'Invalid token structure' });
-//         }
-//     });
-// };
+    jwt.verify(token, process.env.JWT_SECRET as string, (err, data) => {
+        if (err) {
+            throw new Error('Invalid token')
+        }
 
-// export default protect;
+        if (typeof data === 'object' && data !== null) {
+            req.user = data as IUser;  
+            next();
+        } else {
+            result.message = 'Invalid token structure'
+            result.code = 403
+            result.error = true
+        }
+    });
+    res.status(result.code).json(result)
+};
+
+export default protect;

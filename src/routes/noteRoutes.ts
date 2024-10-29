@@ -8,7 +8,7 @@ const router = express.Router()
 router.get('/', health)
 
 router.post('/note', createNote);   
-router.get('/notes', getNotes);   
+router.get('/notes', protect, getNotes);   
 router.get('/note/:id', getNoteById); 
 router.put('/note/:id', updateNote); 
 router.delete('/note/:id', deleteNote);

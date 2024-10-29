@@ -28,13 +28,8 @@ export const createNote = async (req: Request, res: Response, next: NextFunction
 };
 
 export const getNotes = async (req: Request, res: Response, next: NextFunction) :Promise<any> => {
-    const userId = req.body.userId || req.query.userId;;
-    console.log("UserID:", userId);
-
-// const notes = await NoteModel.find();
-
-    try {
-        const notes = await NoteModel.find({ userId });
+      try {
+        const notes = await NoteModel.find({});
         res.status(200).json({ error: false, data: notes });
         console.log("Notes retrieved:", notes);
     } catch (error: any) {
